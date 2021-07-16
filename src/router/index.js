@@ -1,8 +1,6 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
 import Home from "../views/Home"
-// import Default from "../views/TwoColumnLeft"
-// import Sidebar from "../components/navigation/Sidebar"
 
 Vue.use(VueRouter)
 
@@ -152,6 +150,10 @@ const routes = [
       },
     ]
   },
+  {
+    path: '*',
+    component: () => import(/* webpackChunkName: "PageNotFound" */ "../views/PageNotFound"),
+  }
   
 ]
 
