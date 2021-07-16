@@ -1,28 +1,48 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <AppToolbar />
+    <v-main>
+      <router-view :key="$route.path" />
+      <!-- <router-view name="TwoColumnLeft" /> -->
+    </v-main>
+    <Footer />
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// @ is an alias to /src
+import AppToolbar from '@/components/toolbars/AppToolbar'
+import Footer from '@/components/navigation/Footer'
 
 export default {
   name: 'App',
+
   components: {
-    HelloWorld
-  }
-}
+    AppToolbar,
+    Footer
+  },
+
+  data: () => ({
+    //
+  }),
+};
 </script>
+
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Lato, Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  text-align: left;
   color: #2c3e50;
-  margin-top: 60px;
+  font-size: 16px;
+}
+
+.v-toolbar__extension {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0 !important;
+  top: 5px;
 }
 </style>
