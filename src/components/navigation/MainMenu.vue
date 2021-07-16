@@ -88,7 +88,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 #main-menu {
   width: 100%;
   margin: 0 auto;

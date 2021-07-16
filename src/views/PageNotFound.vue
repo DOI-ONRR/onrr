@@ -41,7 +41,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .page__wrap {
   padding-top: 25px;
 }

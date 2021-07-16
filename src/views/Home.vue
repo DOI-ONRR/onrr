@@ -124,7 +124,7 @@ export default {
 </script>
 
 
-<style scoped>
+<style lang="scss" scoped>
   .home-content img {
     max-width: 100%;
     margin: 20px 0;

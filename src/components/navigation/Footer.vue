@@ -83,7 +83,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .footer {
   margin-top: 50px;
 }

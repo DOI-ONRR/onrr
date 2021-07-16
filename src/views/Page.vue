@@ -4,7 +4,7 @@
       <v-progress-circular :value="20"></v-progress-circular>
     </div>
     <div v-else class="page-wrap">
-      <div v-html="page.content" />
+      <div v-html="page.content" class="body-1" />
     </div>
   </div>
 </template>
@@ -56,7 +56,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .page-wrap {
   padding-top: 25px;
 }

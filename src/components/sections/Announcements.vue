@@ -2,11 +2,11 @@
   <v-container>
     <h2 style="margin-bottom: 8px;">{{ title  || 'Announcements'}}</h2>
     <v-card v-for="announcement in announcements" :key="announcement.id"
-    color="#f1f1f1"
+    color="grey lighten-3"
     class="announcement-card"
     elevation="0">
       <v-card-title>{{ announcement.title }}</v-card-title>
-      <v-card-text v-html="announcement.content" />
+      <v-card-text v-html="announcement.content" class="body-1" />
     </v-card>
   </v-container>
 </template>
@@ -15,6 +15,11 @@
 import { ANNOUNCEMENTS_QUERY } from '@/graphql/queries'
 export default {
   name: 'Announcements',
+  data() {
+    return {
+
+    }
+  },
   apollo: {
     announcements: {
       query: ANNOUNCEMENTS_QUERY,
@@ -27,7 +32,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .announcement-card {
   margin-bottom: 25px;
 }

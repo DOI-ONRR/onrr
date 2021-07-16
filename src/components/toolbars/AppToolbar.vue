@@ -18,7 +18,7 @@
     </v-system-bar>
     <v-app-bar
       app
-      color="rgb(6,33,53)"
+      color="primary"
       dark
     >
         <div class="d-flex align-center logo">
@@ -66,6 +66,14 @@
           <v-icon>mdi-chart-bar</v-icon>
         </v-btn>
 
+        <!-- <v-btn
+          text
+          @click="toggleTheme()"
+        >
+          <span class="mr-2">Change Theme</span>
+          <v-icon>mdi-toggle-switch-off</v-icon>
+        </v-btn> -->
+
         <template v-slot:extension>
           <MainMenu />
         </template>
@@ -80,11 +88,16 @@ export default {
   name: 'AppToolbar',
   components: {
     MainMenu
+  },
+  methods: {
+    toggleTheme() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+    }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .logo a {
   text-decoration: none;
   color: white;

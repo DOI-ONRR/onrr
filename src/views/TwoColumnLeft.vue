@@ -108,7 +108,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .text-center {
   position: absolute;
   left: 50%;

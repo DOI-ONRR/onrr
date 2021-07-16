@@ -31,12 +31,12 @@ export default {
 
 <style>
 #app {
-  font-family: Lato, Arial, Helvetica, sans-serif;
+  /* font-family: Lato, Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: left;
   color: #2c3e50;
-  font-size: 16px;
+  font-size: 16px; */
 }
 
 .v-toolbar__extension {
