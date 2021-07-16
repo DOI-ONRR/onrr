@@ -3,82 +3,92 @@
     <div class="text-center" v-if="$apollo.loading">
       <v-progress-circular :value="20"></v-progress-circular>
     </div>
-    <v-container class="home-content" v-else>
-      <v-row>
-        <v-col
-          sm="12"
-          md="8">
-          <div v-html="pages_by_id.content" />
-          <!-- First row of block content -->
-          <v-row class="first-row">
-            <v-col sm="12" md="6" v-for="block in firstRowBlocks" :key="block.id">
-              <v-card outlined elevation="0" class="card">
-                <h2>{{ block.title }}</h2>
-                <div v-html="block.content" />
-              </v-card>
-            </v-col>
-          </v-row>
+    <div v-else>
+      <HeroImage v-if="pages_by_id" title="The Office of Natural Resources Revenue (ONRR)" :image="`${ site_url }/assets/${ pages_by_id.hero_image.id }?fit=cover&quality=80`" />
+      <v-container class="home__content">
+        <v-row>
+          <v-col
+            sm="12"
+            md="8">
+            <div v-html="pages_by_id.content" />
+            <!-- First row of block content -->
+            <v-row class="first-row">
+              <v-col sm="12" md="6" v-for="block in firstRowBlocks" :key="block.id">
+                <v-card outlined elevation="0" class="card">
+                  <h2>{{ block.title }}</h2>
+                  <div v-html="block.content" />
+                </v-card>
+              </v-col>
+            </v-row>
 
-          <!-- Second row block content -->
-          <v-row class="second-row">
-            <v-col sm="12" md="4" v-for="block in secondRowBlocks" :key="block.id">
-              <v-card outlined elevation="0" class="card">
-                <h2>{{ block.title }}</h2>
-                <div v-html="block.content" />
-              </v-card>
-            </v-col>
-          </v-row>
+            <!-- Second row block content -->
+            <v-row class="second-row">
+              <v-col sm="12" md="4" v-for="block in secondRowBlocks" :key="block.id">
+                <v-card outlined elevation="0" class="card">
+                  <h2>{{ block.title }}</h2>
+                  <div v-html="block.content" />
+                </v-card>
+              </v-col>
+            </v-row>
 
-          <!-- Third row block content -->
-          <v-row class="third-row">
-            <v-col sm="12" md="4" v-for="block in thirdRowBlocks" :key="block.id">
-              <v-card outlined elevation="0" class="card">
-                <h2>{{ block.title }}</h2>
-                <div v-html="block.content" />
-              </v-card>
-            </v-col>
-          </v-row>
+            <!-- Third row block content -->
+            <v-row class="third-row">
+              <v-col sm="12" md="4" v-for="block in thirdRowBlocks" :key="block.id">
+                <v-card outlined elevation="0" class="card">
+                  <h2>{{ block.title }}</h2>
+                  <div v-html="block.content" />
+                </v-card>
+              </v-col>
+            </v-row>
 
-          <!-- Fourth row of block content -->
-          <v-row class="fourth-row">
-            <v-col sm="12" md="6">
-              <v-card outlined elevation="0" class="card">
-                <FilesBlock title="Reporter Letters" filterBy="Reporter Letters" />
-              </v-card>
-            </v-col>
-            <v-col sm="12" md="6">
-              <v-card outlined elevation="0" class="card">
-                <FilesBlock title="Press Releases" filterBy="Press Releases" />
-              </v-card>
-            </v-col>
-          </v-row>
+            <!-- Fourth row of block content -->
+            <v-row class="fourth-row">
+              <v-col sm="12" md="6">
+                <v-card outlined elevation="0" class="card">
+                  <FilesBlock title="Reporter Letters" filterBy="Reporter Letters" />
+                </v-card>
+              </v-col>
+              <v-col sm="12" md="6">
+                <v-card outlined elevation="0" class="card">
+                  <FilesBlock title="Press Releases" filterBy="Press Releases" />
+                </v-card>
+              </v-col>
+            </v-row>
 
-          <!-- Fifth row of block content -->
-          <v-row class="fifth-row">
-            <v-col sm="12" md="12">
-              <v-card outlined elevation="0" class="card">
-                <RevenueStats title="Revenue Statistics" />
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-col>
-        <v-col sm="12" md="4">
-          <Announcements title="Announcements" />
-        </v-col>
-      </v-row>
-      
-    </v-container>
+            <!-- Fifth row of block content -->
+            <v-row class="fifth-row">
+              <v-col sm="12" md="12">
+                <v-card outlined elevation="0" class="card">
+                  <RevenueStats title="Revenue Statistics" />
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-col>
+          <v-col sm="12" md="4">
+            <Announcements title="Announcements" />
+          </v-col>
+        </v-row>
+        
+      </v-container>
+    </div>
   </div>
 </template>
 
 <script>
 import { HOME_PAGE_QUERY } from '@/graphql/queries'
+import { DIRECTUS_API_URL } from '@/constants'
 import Announcements from '@/components/sections/Announcements'
 import FilesBlock from '@/components/sections/FilesBlock'
 import RevenueStats from '@/components/sections/RevenueStats'
+import HeroImage from '@/components/sections/HeroImage'
 
 export default {
   name: 'Home',
+  data() {
+    return {
+      site_url: DIRECTUS_API_URL
+    }
+  },
   apollo: {
     pages_by_id: {
       query: HOME_PAGE_QUERY,
@@ -92,7 +102,8 @@ export default {
   components: {
     Announcements,
     FilesBlock,
-    RevenueStats
+    RevenueStats,
+    HeroImage
   },
   computed: {
     firstRowBlocks() {
@@ -123,7 +134,7 @@ export default {
     padding: 10px;
   }
 
-  .home__wrap {
+  .home__content {
     padding-top: 25px;
   }
 

@@ -3,7 +3,7 @@
     <img 
     :src="image"
     alt="Sunrise reflection" />
-    <h1 class="hero__text">
+    <h1 class="hero__text" v-if="title">
       {{ title }}
     </h1>
   </div>

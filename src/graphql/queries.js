@@ -27,7 +27,10 @@ export const HOME_PAGE_QUERY = gql`query {
   pages_by_id(id: 1) {
     id
     title 
-    content 
+    content
+    hero_image {
+      id
+    }
   }
   content_blocks {
     id
