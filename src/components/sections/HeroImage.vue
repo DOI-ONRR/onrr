@@ -45,7 +45,7 @@ export default {
   width: 80%;
   bottom: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.65);
+  background: rgba(150, 66,169, 0.65);
   color: white;
   display: flex;
   align-items: flex-start;
