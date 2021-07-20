@@ -69,7 +69,7 @@ export default {
   font-size: 24px;
   line-height: inherit;
   width: 85%;
-  height: 140px;
+  height: 110px;
   text-align: left;
   padding: 20px;
   left: 0;

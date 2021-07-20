@@ -1,10 +1,12 @@
 <template>
-  <v-container>
+  <v-container class="announcements__wrap">
     <h2 style="margin-bottom: 8px;">{{ title  || 'Announcements'}}</h2>
-    <v-card v-for="announcement in announcements" :key="announcement.id"
-    color="grey lighten-3"
-    class="announcement-card"
-    elevation="0">
+    <v-card 
+      v-for="announcement in announcements"
+      :key="announcement.id"
+      outlined
+      elevation="0"
+      class="card">
       <v-card-title>{{ announcement.title }}</v-card-title>
       <v-card-text v-html="announcement.content" class="body-1" />
     </v-card>
@@ -33,7 +35,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.announcement-card {
+.announcements__wrap .card {
+  border-top-color: #ecb947;
+  border-top-width: 6px;
   margin-bottom: 25px;
 }
 </style>

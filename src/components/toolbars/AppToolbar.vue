@@ -3,7 +3,9 @@
     <v-system-bar
       app
       color="#222"
-      height="30">
+      height="30"
+      class="system-bar"
+      :class="{ 'hidden-system-bar': !showSystemBar }">
       <div class="banner-wrap">
         <v-img
         alt="U.S. Flag"
@@ -21,6 +23,7 @@
       color="primary"
       dark
       class="v-app-bar-wrap"
+      :class="{ 'hidden-system-bar': !showSystemBar }"
     >
         <div class="d-flex align-center logo">
           <router-link to="/">
@@ -99,19 +102,45 @@
 <script>
 import MainMenu from '../navigation/MainMenu'
 
+const OFFSET = 30
+
 export default {
   name: 'AppToolbar',
   data () {
     return {
-      hostname: location.hostname
+      hostname: location.hostname,
+      showSystemBar: true, 
+      lastScrollPosition: 0,
+      scrollValue: 0
     }
   },
   components: {
     MainMenu
   },
+  mounted () {
+    this.lastScrollPosition = window.pageYOffset
+    window.addEventListener('scroll', this.onScroll)
+    const viewportMeta = document.createElement('meta')
+    viewportMeta.name = 'viewport'
+    viewportMeta.content = 'width=device-width, initial-scale=1'
+    document.head.appendChild(viewportMeta)
+  },
+  beforeDestroy () {
+    window.removeEventListener('scroll', this.onScroll)
+  },
   methods: {
-    toggleTheme() {
+    toggleTheme () {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+    },
+    onScroll () {
+      if (window.pageYOffset < 0) {
+        return
+      }
+      if (Math.abs(window.pageYOffset - this.lastScrollPosition) < OFFSET) {
+        return
+      }
+      this.showSystemBar = window.pageYOffset < this.lastScrollPosition
+      this.lastScrollPosition = window.pageYOffset
     }
   }
 }
@@ -144,4 +173,25 @@ export default {
 .no-btn-hover::before {
   background-color: transparent !important;
 }
+
+.system-bar {
+  transform: translate3d(0, 0, 0);
+  transition: 0.1s all ease-out;
+}
+
+.system-bar.hidden-system-bar {
+  height: 0;
+  transition: height .1 ease;
+}
+
+.v-app-bar-wrap {
+  transition: 0.1s all ease-out;
+}
+
+.v-app-bar-wrap.hidden-system-bar {
+  margin-top: 0 !important;
+  height: 50px;
+  transition: height .1s ease;
+}
+
 </style>

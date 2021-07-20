@@ -18,7 +18,10 @@
             <!-- First row of block content -->
             <v-row class="first-row">
               <v-col sm="12" md="6" v-for="block in firstRowBlocks" :key="block.id">
-                <v-card outlined elevation="0" class="card">
+                <v-card 
+                  outlined
+                  elevation="0" 
+                  class="card">
                   <h2>{{ block.title }}</h2>
                   <div v-html="block.content" />
                 </v-card>
@@ -123,6 +126,11 @@ export default {
     contentBlocks() {
       const blocks = this.content_blocks
       return blocks.sort((a, b) => a.id - b.id)
+    },
+    cssProps () {
+      return {
+        '--anchor-color': this.$vuetify.theme.themes.dark.anchor
+      }
     }
   }
 }
@@ -150,6 +158,8 @@ export default {
 
   .first-row .card {
     min-height: 350px;
+    border-top-color: #0076a3;
+    border-top-width: 6px;
   }
 
   .second-row .card {
@@ -160,7 +170,20 @@ export default {
     min-height: 275px;
   }
 
+  .second-row .card,
+  .third-row .card {
+    border-top-color: #1a227e;
+    border-top-width: 6px;
+  }
+
   .fourth-row .card {
     min-height: 375px;
+    border-top-color: #534aae;
+    border-top-width: 6px;
+  }
+
+  .fifth-row .card {
+    border-top-color: #097d4d;
+    border-top-width: 6px;
   }
 </style>

@@ -64,6 +64,9 @@ export default {
           breadcrumb = ''
         }
       }
+      // add home into array
+      const homeObj = { href: '/', disabled: false, text: 'Home' }
+      breadcrumbs.unshift(homeObj)
       return breadcrumbs
     }
   }

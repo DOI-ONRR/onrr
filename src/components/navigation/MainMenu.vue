@@ -34,6 +34,15 @@
             </v-list>
           </v-menu>
         </li>
+        <li>
+          <v-text-field
+            solo-inverted
+            dense
+            label="Search"
+            prepend-inner-icon="mdi-magnify"
+            class="search-input">
+          </v-text-field>
+        </li>
       </ul>
     </nav>
   </div>
@@ -114,7 +123,7 @@ export default {
   text-transform: uppercase;
 }
 
-/* #main-menu a.nav-active-class {
-  border-bottom: 2px solid white;
-} */
+#main-menu li:last-child {
+  padding-top: 24px;
+}
 </style>
