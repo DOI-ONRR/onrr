@@ -47,33 +47,46 @@
         <v-btn
           text
           to="/about-onrr/contact-us"
+          class="no-btn-hover"
         >
-          <span class="mr-2">Contact Us</span>
-          <v-icon>mdi-phone</v-icon>
+          <span class="v-btn__content">
+            <v-icon>mdi-phone</v-icon>
+            <span class="mr-2">Contact Us</span>
+          </span>
+          
         </v-btn>
         <v-btn
           text
           to="/references/reporter-training"
+          class="no-btn-hover"
         >
-          <span class="mr-2">Events</span>
-          <v-icon>mdi-calendar</v-icon>
+          <span class="v-btn__content">
+            <v-icon>mdi-calendar</v-icon>
+            <span class="mr-2">Events</span>
+          </span>
         </v-btn>
         <v-btn
           href="https://revenuedata.doi.gov"
           target="_blank"
           text
+          class="no-btn-hover"
         >
-          <span class="mr-2">Revenue Data</span>
-          <v-icon>mdi-chart-bar</v-icon>
+          <span class="v-btn__content">
+            <v-icon>mdi-chart-bar</v-icon>
+            <span class="mr-2">Revenue Data</span>
+          </span>
         </v-btn>
 
-        <v-btn
+        <!-- <v-btn
           text
           @click="toggleTheme()"
+          class="no-btn-hover"
         >
-          <span class="mr-2">Change Theme</span>
-          <v-icon>mdi-toggle-switch-off</v-icon>
-        </v-btn>
+          <span class="v-btn__content">
+            <v-icon>mdi-toggle-switch-off</v-icon>
+            <span class="mr-2">Change Theme</span>
+          </span>
+        </v-btn> -->
 
         <template v-slot:extension>
           <MainMenu />
@@ -120,5 +133,9 @@ export default {
 
 .v-btn__content {
   flex-direction: column;
+}
+
+.no-btn-hover::before {
+  background-color: transparent !important;
 }
 </style>
