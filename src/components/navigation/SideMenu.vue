@@ -33,10 +33,8 @@ export default {
       result({ data }) {
         const mItems = []
         if (data) {
-          console.log('Side menu data: ', data)
           const childItems = data.menu_items.filter(item => 
-            item.menu === 'main' && item.parent !== null && item.parent.link_to_page.slug === this.menuSlug)
-          console.log('childItems: ', childItems)
+          item.menu === 'main' && item.parent !== null && item.parent.link_to_page.slug === this.menuSlug)
           data.menu_items.filter(item => item.menu === 'main').map(item => {
             if (item.parent === null) {
               mItems.push({ key: item, data: [...childItems.filter(child => child.parent.id === item.id) ] })

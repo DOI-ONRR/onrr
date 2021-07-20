@@ -20,6 +20,7 @@
       app
       color="primary"
       dark
+      class="v-app-bar-wrap"
     >
         <div class="d-flex align-center logo">
           <router-link to="/">
@@ -66,13 +67,13 @@
           <v-icon>mdi-chart-bar</v-icon>
         </v-btn>
 
-        <!-- <v-btn
+        <v-btn
           text
           @click="toggleTheme()"
         >
           <span class="mr-2">Change Theme</span>
           <v-icon>mdi-toggle-switch-off</v-icon>
-        </v-btn> -->
+        </v-btn>
 
         <template v-slot:extension>
           <MainMenu />
@@ -115,5 +116,9 @@ export default {
   justify-content: center;
   align-items: center;
   line-height: 30px;
+}
+
+.v-btn__content {
+  flex-direction: column;
 }
 </style>

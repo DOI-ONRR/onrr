@@ -11,6 +11,9 @@ const routes = [
     components: {
       default:  Home,
     },
+    meta: {
+      breadcrumb: "Home"
+    },
     props: true,
   },
   {
@@ -26,8 +29,14 @@ const routes = [
         path: ':slug',
         component: () => import(/* webpackChunkName: "Page" */ "../views/Page"),
         props: true,
+        meta: {
+          breadcrumb: ''
+        },
       },
-    ]
+    ],
+    meta: {
+      breadcrumb: "Getting Started"
+    },
   },
   {
     path: "/reporting",
@@ -44,8 +53,14 @@ const routes = [
         name: 'TwoColumnLeft',
         component: () => import(/* webpackChunkName: "Page" */ "../views/Page") ,
         props: true,
+        meta: {
+          breadcrumb: ''
+        },
       },
-    ]
+    ],
+    meta: {
+      breadcrumb: "Reporting"
+    },
   },
   {
     path: "/references",
@@ -62,8 +77,14 @@ const routes = [
         name: 'TwoColumnLeft',
         component: () => import(/* webpackChunkName: "Page" */ "../views/Page"),
         props: true,
+        meta: {
+          breadcrumb: ''
+        },
       },
-    ]
+    ],
+    meta: {
+      breadcrumb: "References"
+    },
   },
   {
     path: "/paying",
@@ -80,8 +101,14 @@ const routes = [
         name: 'TwoColumnLeft',
         component: () => import(/* webpackChunkName: "Page" */ "../views/Page"),
         props: true,
+        meta: {
+          breadcrumb: ''
+        },
       },
-    ]
+    ],
+    meta: {
+      breadcrumb: "Paying"
+    },
   },
   {
     path: "/compliance-enforcement",
@@ -98,8 +125,14 @@ const routes = [
         name: 'TwoColumnLeft',
         component: () => import(/* webpackChunkName: "Page" */ "../views/Page"),
         props: true,
+        meta: {
+          breadcrumb: ''
+        },
       },
-    ]
+    ],
+    meta: {
+      breadcrumb: "Compliance Enforcement"
+    },
   },
   {
     path: "/indian-resources",
@@ -116,17 +149,15 @@ const routes = [
         name: 'TwoColumnLeft',
         component: () => import(/* webpackChunkName: "Page" */ "../views/Page"),
         props: true,
+        meta: {
+          breadcrumb: ''
+        },
       },
-    ]
+    ],
+    meta: {
+      breadcrumb: "Indian Resources"
+    },
   },
-  // {
-  //   path: "/about-onrr/contact-us",
-  //   props: true,
-  //   components: {
-  //     default: () => import(/* webpackChunkName: "Contact" */  "../views/TwoColumnLeft"),
-  //     contact: () => import(/* webpackChunkName: "Contact" */ "../views/Contact"),
-  //   },
-  // },
   {
     path: "/about-onrr",
     name: "TwoColumnLeft",
@@ -140,19 +171,31 @@ const routes = [
       {
         path: 'contact-us',
         component: () => import(/* webpackChunkName: "Page" */ "../views/Contact"),
-        props: true
+        props: true,
+        meta: {
+          breadcrumb: 'Contact Us'
+        },
       },
       {
         path: ':slug',
         name: 'TwoColumnLeft',
         component: () => import(/* webpackChunkName: "Page" */ "../views/Page"),
         props: true,
+        meta: {
+          breadcrumb: ''
+        },
       },
-    ]
+    ],
+    meta: {
+      breadcrumb: "About ONRR"
+    },
   },
   {
     path: '*',
     component: () => import(/* webpackChunkName: "PageNotFound" */ "../views/PageNotFound"),
+    meta: {
+      breadcrumb: "Page Not Found"
+    },
   }
   
 ]

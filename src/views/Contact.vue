@@ -1,5 +1,6 @@
 <template>
   <div class="contacts-wrap">
+    <Breadcrumbs />
     <v-card
     class="mx-auto v-card"
     max-width="100%"
@@ -36,6 +37,7 @@
 
 <script>
 import { CONTACTS_QUERY } from '@/graphql/queries'
+import Breadcrumbs from '@/components/sections/Breadcrumbs'
 
 export default {
   name: 'Contact',
@@ -43,6 +45,9 @@ export default {
     return {
       contacts: []
     }
+  },
+  components: {
+    Breadcrumbs
   },
   apollo: {
     contacts: {

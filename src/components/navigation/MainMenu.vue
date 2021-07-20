@@ -26,7 +26,6 @@
               </v-list-item>
               <v-list-item
                 v-for="cItem in item.data"
-
                 :key="cItem.id"
                 :to="`/${ item.key.link_to_page.slug }/${ cItem.link_to_page ? cItem.link_to_page.slug : '' }`"
               >

@@ -93,14 +93,13 @@ export default {
     findPageBySlug: function () {
       const str = this.$route.path
       const routes = str.split('/')
-      console.debug('route-----> ', routes)
+
       let page
       if(this.pages) {
         page = (this.slug !== undefined) 
           ? this.pages.find(page => page.slug === this.slug)
           : this.pages.find(page => page.slug === routes[routes.length - 1])
       }
-      console.debug('what page did we get----------> ', page)
       this.page = page
       return page
     }

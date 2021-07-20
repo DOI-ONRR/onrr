@@ -4,6 +4,7 @@
       <v-progress-circular :value="20"></v-progress-circular>
     </div>
     <div v-else class="page-wrap">
+      <Breadcrumbs />
       <div v-html="page.content" class="body-1" />
     </div>
   </div>
@@ -11,8 +12,13 @@
 
 <script>
 import { PAGES_QUERY, PAGES_BY_ID_QUERY } from '@/graphql/queries'
+import Breadcrumbs from '@/components/sections/Breadcrumbs'
+
 export default {
   name: 'Page',
+  components: {
+    Breadcrumbs
+  },
   data() {
     return {
       pages: [],
