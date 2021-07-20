@@ -81,6 +81,7 @@
           text
           @click="toggleTheme()"
           class="no-btn-hover"
+          v-if="hostname === 'localhost'"
         >
           <span class="v-btn__content">
             <v-icon>mdi-toggle-switch-off</v-icon>
@@ -100,6 +101,11 @@ import MainMenu from '../navigation/MainMenu'
 
 export default {
   name: 'AppToolbar',
+  data () {
+    return {
+      hostname: location.hostname
+    }
+  },
   components: {
     MainMenu
   },
