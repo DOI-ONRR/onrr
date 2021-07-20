@@ -6,7 +6,11 @@
       </div>
     </div>
     <div v-else>
-      <HeroImage v-if="page" :title="page.title" :image="`${ site_url }/assets/${ pages_by_id.hero_image.id }?fit=cover&quality=80`" />
+      <HeroImage
+        v-if="page" 
+        :title="page.title" 
+        :image="`${ site_url }/assets/${ pages_by_id.hero_image.id }?fit=cover&quality=80`"
+        :isHome="false" />
       <v-container>
         <v-row>
           <v-col

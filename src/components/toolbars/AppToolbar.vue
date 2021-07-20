@@ -77,7 +77,7 @@
           </span>
         </v-btn>
 
-        <!-- <v-btn
+        <v-btn
           text
           @click="toggleTheme()"
           class="no-btn-hover"
@@ -86,7 +86,7 @@
             <v-icon>mdi-toggle-switch-off</v-icon>
             <span class="mr-2">Change Theme</span>
           </span>
-        </v-btn> -->
+        </v-btn> 
 
         <template v-slot:extension>
           <MainMenu />

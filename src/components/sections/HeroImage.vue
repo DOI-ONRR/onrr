@@ -3,7 +3,7 @@
     <img 
     :src="image"
     alt="Sunrise reflection" />
-    <h1 class="hero__text" v-if="title">
+    <h1 :class="[isHome ? 'hero__home-text' : 'hero__text']" v-if="title">
       {{ title }}
     </h1>
   </div>
@@ -12,12 +12,18 @@
 <script>
 export default {
   name: 'HeroImage',
+  data () {
+    return {}
+  },
   props: {
     title: {
       type: String
     },
     image: {
       type: String
+    },
+    isHome: {
+      type: Boolean
     }
   }
 }
@@ -52,5 +58,20 @@ export default {
   justify-content: flex-start;
   flex-direction: column;
   padding-left: 50px;
+}
+
+.hero__home-text {
+  position: absolute;
+  font-weight: 400;
+  bottom: 0;
+  background: rgba(150, 66,169, 0.65);
+  color: white;
+  font-size: 24px;
+  line-height: inherit;
+  width: 85%;
+  height: 140px;
+  text-align: left;
+  padding: 20px;
+  left: 0;
 }
 </style>

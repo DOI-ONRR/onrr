@@ -11,11 +11,20 @@
 </template>
 
 <script>
+import { PAGES_QUERY } from '@/graphql/queries'
 import { titleCase } from '@/js/utils'
+
 export default {
   name: 'Breadcrumbs',
   data () {
     return {
+      pages: []
+    }
+  },
+  apollo: {
+    pages: {
+      query: PAGES_QUERY,
+      loadingKey: 'loading...',
     }
   },
   methods: {
@@ -25,6 +34,10 @@ export default {
         .replace(/^./, function(x) { return x.toUpperCase() })
 
       return titleCase(result)
+    },
+    getPageTitleBySlug (slug) {
+      const page = this.pages.find(page => page.slug === slug)
+      return page.title
     }
   },
   computed: {
@@ -45,7 +58,7 @@ export default {
               ? '/' + pathArray[i - (i - lastIndexFound)] + breadcrumb
               : breadcrumb,
             disabled: i + 1 === pathArray.length,
-            text: this.$route.matched[i].meta.breadcrumb || this.prettyBreadcrumb(pathArray[i])
+            text: this.$route.matched[i].meta.breadcrumb || this.getPageTitleBySlug(pathArray[i])
           })
           lastIndexFound = i
           breadcrumb = ''
