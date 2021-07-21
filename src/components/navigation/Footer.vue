@@ -1,6 +1,10 @@
 <template>
-  <footer class="footer">
-    <div class="top">
+  <v-footer
+    padless
+    class="footer">
+    <v-row
+      justify="center"
+      class="top">
       <nav>
         <ul>
           <li v-for="item in menuItems" :key="item.id">
@@ -10,8 +14,8 @@
           </li>
         </ul>
       </nav>
-    </div>
-    <div class="bottom">
+    </v-row>
+    <v-row class="bottom">
       <div class="footer-logo-wrap">
         <router-link to="/">
           <v-img
@@ -52,9 +56,8 @@
           </li>
         </ul>
       </nav>
-    </div>
-    
-  </footer>
+    </v-row>
+  </v-footer>
 </template>
 
 <script>
@@ -86,6 +89,7 @@ export default {
 <style lang="scss" scoped>
 .footer {
   margin-top: 50px;
+  overflow: hidden;
 }
 .footer a {
   color: white;

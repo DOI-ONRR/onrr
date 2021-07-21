@@ -15,12 +15,12 @@
         <v-row>
           <v-col
             sm="12"
-            md="3">
+            md="4">
             <SideMenu v-if="page" :menuId="page.id" :menuHeader="page.title" :menuSlug="parentSlug" />
           </v-col>
           <v-col
             sm="12"
-            md="9">
+            md="8">
             <router-view />
           </v-col>
         </v-row>

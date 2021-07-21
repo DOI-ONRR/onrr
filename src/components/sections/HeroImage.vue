@@ -32,17 +32,19 @@ export default {
 <style lang="scss" scoped>
 .hero-container {
   position: relative;
-  top: 5px;
+  top: 0;
   height: 300px;
+
+  img {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: 50% 50%;
+    object-fit: cover;
+    object-position: left 15%;
+  }
 }
-.hero-container img {
-  height: 100%;
-  width: 100%;
-  background-size: cover;
-  background-position: 50% 50%;
-  object-fit: cover;
-  object-position: left 15%;
-}
+
 .hero__text {
   position: absolute;
   height: 100px;
@@ -63,13 +65,13 @@ export default {
 .hero__home-text {
   position: absolute;
   font-weight: 400;
-  bottom: 0;
+  top: 0;
   background: rgba(150, 66,169, 0.65);
   color: white;
   font-size: 24px;
   line-height: inherit;
   width: 85%;
-  height: 110px;
+  height: auto;
   text-align: left;
   padding: 20px;
   left: 0;

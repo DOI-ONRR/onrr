@@ -16,20 +16,22 @@
                 v-on="on"
                 v-on:hover="getChildItems(item.key.id)"
                 v-on:click="onClick($event.target.innerText); getChildItems(item.key.id)"
+                class="menu-btn"
               >
                   {{ item.key.menu_label }}
               </v-btn>
             </template>
             <v-list>
-              <v-list-item :to="`/${ item.key.link_to_page.slug }`">
+              <v-list-item :to="`/${ item.key.link_to_page.slug }`" class="menu-btn">
                 {{ `${ item.key.menu_label } Home` }}
               </v-list-item>
               <v-list-item
-                v-for="cItem in item.data"
-                :key="cItem.id"
-                :to="`/${ item.key.link_to_page.slug }/${ cItem.link_to_page ? cItem.link_to_page.slug : '' }`"
+                v-for="child in item.data"
+                :key="child.id"
+                :to="`/${ item.key.link_to_page.slug }/${ child.link_to_page ? child.link_to_page.slug : '' }`"
+                class="menu-btn"
               >
-                  {{ cItem.menu_label }}
+                  {{ child.menu_label }}
               </v-list-item>
             </v-list>
           </v-menu>
@@ -125,5 +127,9 @@ export default {
 
 #main-menu li:last-child {
   padding-top: 24px;
+}
+
+.menu-btn {
+  text-transform: none;
 }
 </style>

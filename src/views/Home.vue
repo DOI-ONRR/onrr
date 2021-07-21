@@ -12,12 +12,13 @@
       <v-container class="home__content">
         <v-row>
           <v-col
-            sm="12"
-            md="8">
+            cols="12"
+            xs="12"
+            sm="8">
             <div v-html="pages_by_id.content" />
             <!-- First row of block content -->
             <v-row class="first-row">
-              <v-col sm="12" md="6" v-for="block in firstRowBlocks" :key="block.id">
+              <v-col cols="12" xs="12" sm="6" v-for="block in firstRowBlocks" :key="block.id">
                 <v-card 
                   outlined
                   elevation="0" 
@@ -30,7 +31,7 @@
 
             <!-- Second row block content -->
             <v-row class="second-row">
-              <v-col sm="12" md="4" v-for="block in secondRowBlocks" :key="block.id">
+              <v-col cols="12" xs="12" md="4" v-for="block in secondRowBlocks" :key="block.id">
                 <v-card outlined elevation="0" class="card">
                   <h2>{{ block.title }}</h2>
                   <div v-html="block.content" />
@@ -40,7 +41,7 @@
 
             <!-- Third row block content -->
             <v-row class="third-row">
-              <v-col sm="12" md="4" v-for="block in thirdRowBlocks" :key="block.id">
+              <v-col cols="12" xs="12" md="4" v-for="block in thirdRowBlocks" :key="block.id">
                 <v-card outlined elevation="0" class="card">
                   <h2>{{ block.title }}</h2>
                   <div v-html="block.content" />
@@ -50,12 +51,12 @@
 
             <!-- Fourth row of block content -->
             <v-row class="fourth-row">
-              <v-col sm="12" md="6">
+              <v-col cols="12" xs="12" md="6">
                 <v-card outlined elevation="0" class="card">
                   <FilesBlock title="Reporter Letters" filterBy="Reporter Letters" />
                 </v-card>
               </v-col>
-              <v-col sm="12" md="6">
+              <v-col xs="12" md="6">
                 <v-card outlined elevation="0" class="card">
                   <FilesBlock title="Press Releases" filterBy="Press Releases" />
                 </v-card>
@@ -64,14 +65,14 @@
 
             <!-- Fifth row of block content -->
             <v-row class="fifth-row">
-              <v-col sm="12" md="12">
+              <v-col cols="12" xs="12" md="12">
                 <v-card outlined elevation="0" class="card">
                   <RevenueStats title="Revenue Statistics" />
                 </v-card>
               </v-col>
             </v-row>
           </v-col>
-          <v-col sm="12" md="4">
+          <v-col cols="12" xs="12" sm="4">
             <Announcements title="Announcements" />
           </v-col>
         </v-row>
@@ -112,6 +113,9 @@ export default {
     FilesBlock,
     RevenueStats,
     HeroImage
+  },
+  mounted () {
+    console.log('breakpoint yo-------> ', this.$vuetify.breakpoint.width)
   },
   computed: {
     firstRowBlocks() {

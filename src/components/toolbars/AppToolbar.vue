@@ -25,7 +25,7 @@
       class="v-app-bar-wrap"
       :class="{ 'hidden-system-bar': !showSystemBar }"
     >
-        <div class="d-flex align-center logo">
+        <div class="d-flex logo">
           <router-link to="/">
             <v-img
               alt="Vuetify Logo"
@@ -47,62 +47,124 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn
-          text
-          to="/about-onrr/contact-us"
-          class="no-btn-hover"
-        >
-          <span class="v-btn__content">
-            <v-icon>mdi-phone</v-icon>
-            <span class="mr-2">Contact Us</span>
-          </span>
+        <div class="d-none d-lg-block">
+          <v-btn
+            text
+            to="/about-onrr/contact-us"
+            class="no-btn-hover"
+          >
+            <span class="v-btn__content">
+              <v-icon>mdi-phone</v-icon>
+              <span class="mr-2">Contact Us</span>
+            </span>
+            
+          </v-btn>
+          <v-btn
+            text
+            to="/references/reporter-training"
+            class="no-btn-hover"
+          >
+            <span class="v-btn__content">
+              <v-icon>mdi-calendar</v-icon>
+              <span class="mr-2">Events</span>
+            </span>
+          </v-btn>
+          <v-btn
+            href="https://revenuedata.doi.gov"
+            target="_blank"
+            text
+            class="no-btn-hover"
+          >
+            <span class="v-btn__content">
+              <v-icon>mdi-chart-bar</v-icon>
+              <span class="mr-2">Revenue Data</span>
+            </span>
+          </v-btn>
+          <v-btn 
+            plain
+            v-if="hostname === 'localhost' || hostname === '192.168.0.22'">
+            <v-switch
+              v-model="themeSwitch"
+              flat
+              color="anchor"
+              label="">
+            </v-switch>
+          </v-btn>
           
-        </v-btn>
-        <v-btn
-          text
-          to="/references/reporter-training"
-          class="no-btn-hover"
-        >
-          <span class="v-btn__content">
-            <v-icon>mdi-calendar</v-icon>
-            <span class="mr-2">Events</span>
-          </span>
-        </v-btn>
-        <v-btn
-          href="https://revenuedata.doi.gov"
-          target="_blank"
-          text
-          class="no-btn-hover"
-        >
-          <span class="v-btn__content">
-            <v-icon>mdi-chart-bar</v-icon>
-            <span class="mr-2">Revenue Data</span>
-          </span>
-        </v-btn>
 
-        <v-btn
-          text
-          @click="toggleTheme()"
-          class="no-btn-hover"
-          v-if="hostname === 'localhost'"
-        >
-          <span class="v-btn__content">
-            <v-icon>mdi-toggle-switch-off</v-icon>
-            <span class="mr-2">Change Theme</span>
-          </span>
-        </v-btn> 
+        </div>
 
-        <template v-slot:extension>
-          <MainMenu />
+        <!-- Mobile Menu -->
+        <div class="d-lg-none">
+          <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        </div>
+
+        <template v-slot:extension v-if="!isMobile">
+          <div class="d-none d-lg-block">
+            <MainMenu />
+          </div>
         </template>
     </v-app-bar>
+    <v-navigation-drawer
+    v-model="drawer"
+    absolute
+    right
+    temporary>
+      <v-list>
+        <v-list-group
+          v-for="item in menuItems"
+          :key="item.key.id"
+          no-action
+        >
+          <template v-slot:activator>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.key.menu_label"></v-list-item-title>
+            </v-list-item-content>
+          </template>
+
+          <v-list>
+            <v-list-item 
+              :to="`/${ item.key.link_to_page.slug }`"
+              class="child-item">
+              {{ `${ item.key.menu_label } Home` }}
+            </v-list-item>
+            <v-list-item
+              v-for="child in item.data"
+              :key="child.id"
+              :to="`/${ item.key.link_to_page.slug }/${ child.link_to_page ? child.link_to_page.slug : '' }`"
+              class="child-item"
+            >
+              <v-list-item-content>
+                <v-list-item-title 
+                  v-text="child.menu_label">
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-list-group>
+      </v-list>
+    </v-navigation-drawer>
+    <v-btn
+      v-scroll="onScroll"
+      v-show="fab"
+      fab
+      dark
+      fixed
+      bottom
+      left
+      color="primary"
+      @click="toTop">
+      <v-icon dark>mdi-chevron-up</v-icon>
+    </v-btn>
   </div>
 </template>
 
 <script>
-import MainMenu from '../navigation/MainMenu'
+import { MENU_QUERY } from '@/graphql/queries'
+import MainMenu from '@/components/navigation/MainMenu'
 
 const OFFSET = 30
+const FAB_OFFSET = 150
 
 export default {
   name: 'AppToolbar',
@@ -111,11 +173,29 @@ export default {
       hostname: location.hostname,
       showSystemBar: true, 
       lastScrollPosition: 0,
-      scrollValue: 0
+      scrollValue: 0,
+      drawer: false,
+      group: null,
+      themeSwitch: false,
+      isMobile: false,
+      fab: false,
+    }
+  },
+  apollo: {
+    menu_items: {
+      query: MENU_QUERY,
+      loadingKey: 'loading...',
     }
   },
   components: {
     MainMenu
+  },
+  beforeDestroy () {
+    window.removeEventListener('scroll', this.onScroll)
+
+    if (typeof window === 'undefined') return
+
+    window.removeEventListener('resize', this.onResize, { passive: true })
   },
   mounted () {
     this.lastScrollPosition = window.pageYOffset
@@ -124,15 +204,29 @@ export default {
     viewportMeta.name = 'viewport'
     viewportMeta.content = 'width=device-width, initial-scale=1'
     document.head.appendChild(viewportMeta)
+
+    // resize
+    this.onResize()
+    window.addEventListener('resize', this.onResize, { passive: true })
   },
-  beforeDestroy () {
-    window.removeEventListener('scroll', this.onScroll)
+  watch: {
+    group () {
+      this.drawer = false
+    },
+    themeSwitch () {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+    }
   },
   methods: {
     toggleTheme () {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
     },
-    onScroll () {
+    onScroll (e) {
+      if (typeof window === 'undefined') return
+
+      const top = window.pageYOffset || e.target.scrollTop || 0
+      this.fab = top > FAB_OFFSET
+
       if (window.pageYOffset < 0) {
         return
       }
@@ -141,21 +235,76 @@ export default {
       }
       this.showSystemBar = window.pageYOffset < this.lastScrollPosition
       this.lastScrollPosition = window.pageYOffset
+    },
+    toTop () {
+      this.$vuetify.goTo(0)
+    },
+    onResize () {
+      // console.log('window.innerWidth------------>', window.innerWidth)
+      // isMobile vuetify lg size
+      this.isMobile = window.innerWidth < 1264
+    }
+  },
+  computed: {
+    menuItems () {
+      const mItems = []
+      if (this.menu_items) {
+        const childItems = this.menu_items.filter(item => (item.menu === 'header' || item.menu === 'main') && item.parent !== null)
+        this.menu_items.filter(item => item.menu === 'main').map(item => {
+          if (item.parent === null) {
+            mItems.push({ key: item, data: [...childItems.filter(child => child.parent.id === item.id)] })
+          }
+        }) 
+      }
+      
+      return mItems
+    },
+    height () {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'lg': return 50
+        default: return 50
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.logo a {
-  text-decoration: none;
-  color: white;
+// @import '~/vuetify/src/styles/styles.sass';
+
+@media #{map-get($display-breakpoints, 'md-and-down')} {
+  .logo {
+    transform: scale(0.85, .85);
+    transition: 0.1s all ease-out;
+    align-items: center;
+    position: relative;
+    left: -40px;
+  }
 }
-.logo .v-toolbar__title {
-  position: relative;
-  top: -2px;
-  margin-left: 5px;
+
+@media #{map-get($display-breakpoints, 'sm-and-down')} {
+  .logo {
+    transform: scale(.65, .65);
+    transition: 0.1s all ease-out;
+    align-items: center;
+    position: relative;
+    left: -80px;
+  }
 }
+
+
+.logo {
+  align-items: center;
+  a {
+    text-decoration: none;
+    color: white;
+  }
+  .v-toolbar__title {
+    position: relative;
+    top: -2px;
+    margin-left: 5px;
+  }
+} 
 .banner-wrap {
   text-align: center;
   color: white;
@@ -170,6 +319,10 @@ export default {
   flex-direction: column;
 }
 
+.no-btn-hover {
+  text-transform: none;
+}
+
 .no-btn-hover::before {
   background-color: transparent !important;
 }
@@ -177,6 +330,7 @@ export default {
 .system-bar {
   transform: translate3d(0, 0, 0);
   transition: 0.1s all ease-out;
+  width: 100vw;
 }
 
 .system-bar.hidden-system-bar {
@@ -186,12 +340,22 @@ export default {
 
 .v-app-bar-wrap {
   transition: 0.1s all ease-out;
+  width: 100vw;
 }
 
 .v-app-bar-wrap.hidden-system-bar {
   margin-top: 0 !important;
   height: 50px;
   transition: height .1s ease;
+}
+
+.main-menu {
+  padding: 0;
+  width: 100vw;
+}
+
+.child-item {
+  padding-left: 24px;
 }
 
 </style>
