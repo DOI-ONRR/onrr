@@ -107,6 +107,7 @@
     </v-app-bar>
     <v-navigation-drawer
     v-model="drawer"
+    app
     absolute
     right
     temporary>
