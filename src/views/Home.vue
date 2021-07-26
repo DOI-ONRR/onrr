@@ -7,7 +7,7 @@
       <HeroImage 
         v-if="pages_by_id" 
         :title="heroContent" 
-        :image="`${ site_url }/assets/${ pages_by_id.hero_image.id }?fit=cover&quality=80`"
+        :image="`${ API_URL }/assets/${ pages_by_id.hero_image.id }?fit=cover&quality=80`"
         :isHome="true" />
       <v-container class="home__content">
         <v-row>
@@ -84,7 +84,6 @@
 
 <script>
 import { HOME_PAGE_QUERY } from '@/graphql/queries'
-import { DIRECTUS_API_URL } from '@/constants'
 import Announcements from '@/components/sections/Announcements'
 import FilesBlock from '@/components/sections/FilesBlock'
 import RevenueStats from '@/components/sections/RevenueStats'
@@ -94,7 +93,7 @@ export default {
   name: 'Home',
   data() {
     return {
-      site_url: DIRECTUS_API_URL,
+      API_URL: process.env.VUE_APP_API_URL,
       heroContent: `The Office of Natural Resources Revenue (ONRR - pronounced like "honor") collects, accounts for, and verifies energy and mineral revenues. We then distribute the funds to States, American Indians, and the U.S. Treasury.`
     }
   },

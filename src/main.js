@@ -5,20 +5,24 @@ import ApolloClient from 'apollo-boost'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import vuetify from './plugins/vuetify'
 import App from './App.vue'
+import possibleTypes from './json/possibleTypes.json'
 
-const cache = new InMemoryCache()
+const cache = new InMemoryCache({
+  possibleTypes
+})
+
 const apolloClient = new ApolloClient({
-  uri: 'https://dev-onrr-cms.app.cloud.gov/graphql',
+  uri: `${ process.env.VUE_APP_API_URL }/graphql`,
   cache
 })
 
 const clientA = new ApolloClient({
-  uri: 'https://dev-onrr-cms.app.cloud.gov/graphql/system',
+  uri: `${ process.env.VUE_APP_API_URL }/graphql/system`,
   cache
 })
 
 const clientB = new ApolloClient({
-  uri: 'https://hasura-dev.app.cloud.gov/v1/graphql',
+  uri: `${ process.env.VUE_APP_NRRD_API_URL }/v1/graphql`,
   cache
 })
 

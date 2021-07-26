@@ -7,20 +7,20 @@
     </div>
     <div v-else>
       <HeroImage
-        v-if="page" 
+        v-if="page && pages_by_id" 
         :title="page.title" 
-        :image="`${ site_url }/assets/${ pages_by_id.hero_image.id }?fit=cover&quality=80`"
+        :image="`${ API_URL }/assets/${ pages_by_id.hero_image ? pages_by_id.hero_image.id : '36cdee7e-e6e8-435f-850c-05636e551723' }?fit=cover&quality=80`"
         :isHome="false" />
       <v-container>
         <v-row>
           <v-col
             sm="12"
-            md="4">
-            <SideMenu v-if="page" :menuId="page.id" :menuHeader="page.title" :menuSlug="parentSlug" />
+            md="3">
+            <SideMenu />
           </v-col>
           <v-col
             sm="12"
-            md="8">
+            md="9">
             <router-view />
           </v-col>
         </v-row>
@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import { DIRECTUS_API_URL } from '@/constants'
 import { PAGES_QUERY, PAGES_BY_ID_QUERY } from '@/graphql/queries'
 import SideMenu from '@/components/navigation/SideMenu'
 import HeroImage from '@/components/sections/HeroImage'
@@ -41,8 +40,7 @@ export default {
     return {
       page: null,
       pages: [],
-      parentSlug: null,
-      site_url: DIRECTUS_API_URL,
+      API_URL: process.env.VUE_APP_API_URL,
       pageId: null,
     }
   },
@@ -82,18 +80,9 @@ export default {
     }
   },
   created () {
-    this.getParentSlug()
     this.findPageBySlug()
   },
   methods: {
-    getParentSlug () {
-      const fullPath = this.$route.fullPath
-      // get first segement of full url path
-      fullPath.indexOf(1)
-      fullPath.toLowerCase()
-      const path = fullPath.split('/')[1]
-      this.parentSlug = path
-    },
     findPageBySlug: function () {
       const str = this.$route.path
       const routes = str.split('/')

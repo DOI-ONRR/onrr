@@ -13,12 +13,11 @@
 
 <script>
 import { FILES_QUERY } from '@/graphql/queries'
-import { DIRECTUS_API_URL } from '@/constants'
 export default {
   name: 'FilesBlock',
   data() {
     return {
-      API: DIRECTUS_API_URL,
+      API: process.env.VUE_APP_API_URL,
       files: []
     }
   },

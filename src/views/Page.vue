@@ -6,6 +6,14 @@
     <div v-else class="page-wrap">
       <Breadcrumbs />
       <div v-html="page.content" class="body-1" />
+      <div v-for="block in page.page_blocks" :key="block.id">
+        <div v-if="block.item.__typename === 'section_heading_blocks'">
+          <ContentBlock :content="block.item.section_heading" :contentType="block.item.section_heading_type" />
+        </div>
+        <div v-if="block.item.__typename === 'text_blocks'">
+          <ContentBlock :content="block.item.content" contentType="body-1" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -13,11 +21,13 @@
 <script>
 import { PAGES_QUERY, PAGES_BY_ID_QUERY } from '@/graphql/queries'
 import Breadcrumbs from '@/components/sections/Breadcrumbs'
+import ContentBlock from '@/components/blocks/ContentBlock'
 
 export default {
   name: 'Page',
   components: {
-    Breadcrumbs
+    Breadcrumbs,
+    ContentBlock
   },
   data() {
     return {
@@ -45,7 +55,7 @@ export default {
     slug: String,
   },
   computed: {
-    findPageBySlug() {
+    findPageBySlug () {
       const str = this.$route.path
       const route = str.replace(/\//g, '')
       let page
@@ -55,7 +65,7 @@ export default {
 
       return page
     },
-    page() {
+    page () {
       return this.pages_by_id
     }
   }

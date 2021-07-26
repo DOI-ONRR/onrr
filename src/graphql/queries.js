@@ -70,8 +70,21 @@ query PagesById($ID: ID!) {
     id
     title 
     content 
+    slug
     hero_image {
       id
+    }
+    page_blocks {
+    	item {
+        __typename
+        # ... on section_heading_blocks {
+        #   section_heading
+        #   section_heading_type
+        # }
+        # ... on text_blocks {
+        #   content
+        # }
+      }
     }
   }
 }`
@@ -142,3 +155,38 @@ export const CONTACTS_QUERY = gql`
     }
   }
 `
+
+// Sample pages by id blocks query
+export const SAMPLE = gql`
+  query {
+    pages_by_id(id: 55) {
+      id
+      slug
+      title
+      page_blocks {
+        id
+        item {
+          __typename
+          ... on headings {
+            section_heading
+            heading_type
+          }
+          ... on text_blocks {
+            content
+          }
+          ... on tab_blocks {
+            title
+            tab_section {
+              id
+              item {
+                ... on tab_block_section {
+                  tab_label
+                  tab_content
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+}`
