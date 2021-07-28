@@ -5,13 +5,23 @@
     </div>
     <div v-else class="page-wrap">
       <Breadcrumbs />
-      <div v-html="page.content" class="body-1" />
+      <div v-if="page.content" v-html="page.content" class="body-1" />
       <div v-for="block in page.page_blocks" :key="block.id">
-        <div v-if="block.item.__typename === 'section_heading_blocks'">
-          <ContentBlock :content="block.item.section_heading" :contentType="block.item.section_heading_type" />
+        <div v-if="block.item && block.item.__typename === 'section_heading_blocks'">
+          <ContentBlock :content="block.item.section_heading" :contentType="block.item.section_heading_type"></ContentBlock>
         </div>
-        <div v-if="block.item.__typename === 'text_blocks'">
-          <ContentBlock :content="block.item.content" contentType="body-1" />
+        <div v-if="block.item && block.item.__typename === 'content_blocks'">
+          <ContentBlock :content="block.item.content" contentType="body-1"></ContentBlock>
+        </div>
+        <div v-if="block.item && block.item.__typename === 'tab_blocks'">
+          <TabsBlock :content="block.item.tab_block" contentType="body-1"></TabsBlock>
+        </div>
+        <div v-if="block.item && block.item.__typename === 'card_blocks'">
+          {{ block.length }}
+          <CardBlock
+            :cardTitle="block.item.card_title"
+            :cardSubtitle="block.item.card_subtitle"
+            :cardContent="block.item.card_content_block"></CardBlock>
         </div>
       </div>
     </div>
@@ -22,12 +32,16 @@
 import { PAGES_QUERY, PAGES_BY_ID_QUERY } from '@/graphql/queries'
 import Breadcrumbs from '@/components/sections/Breadcrumbs'
 import ContentBlock from '@/components/blocks/ContentBlock'
+import TabsBlock from '@/components/blocks/TabsBlock'
+import CardBlock from '@/components/blocks/CardBlock'
 
 export default {
   name: 'Page',
   components: {
     Breadcrumbs,
-    ContentBlock
+    ContentBlock,
+    TabsBlock,
+    CardBlock
   },
   data() {
     return {
@@ -54,6 +68,9 @@ export default {
   props: {
     slug: String,
   },
+  created () {
+    this.$apollo.queries.pages_by_id.refetch()
+  },
   computed: {
     findPageBySlug () {
       const str = this.$route.path
@@ -67,6 +84,10 @@ export default {
     },
     page () {
       return this.pages_by_id
+    },
+    cardBlockCount () {
+      const cardBlocks = this.pages_by_id && this.pages_by_id.page_blocks.filter(block => block.item.__typename === 'card_blocks')
+      return cardBlocks
     }
   }
 }

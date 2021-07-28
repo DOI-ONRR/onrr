@@ -1,13 +1,13 @@
 <template>
   <div
     :class="[`text-${ contentType }`]"
-    v-text="content">
+    v-html="content">
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HeadingBlock',
+  name: 'ContentBlock',
   data () {
     return {}
   },

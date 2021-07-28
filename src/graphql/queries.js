@@ -1,4 +1,7 @@
 import gql from 'graphql-tag'
+// import {
+//   CORE_TAB_BLOCK_FIELDS
+// } from './fragments'
 
 // Main menu query
 export const MENU_QUERY = gql`query {
@@ -19,28 +22,6 @@ export const MENU_QUERY = gql`query {
         slug
       }
     }
-  }
-}`
-
-// Home page queries
-export const HOME_PAGE_QUERY = gql`query {
-  pages_by_id(id: 1) {
-    id
-    title 
-    content
-    hero_image {
-      id
-    }
-  }
-  content_blocks {
-    id
-    title 
-    content 
-    show_title 
-    page {
-      id
-      title
-    },
   }
 }`
 
@@ -77,13 +58,69 @@ query PagesById($ID: ID!) {
     page_blocks {
     	item {
         __typename
-        # ... on section_heading_blocks {
-        #   section_heading
-        #   section_heading_type
-        # }
-        # ... on text_blocks {
-        #   content
-        # }
+        ... on section_heading_blocks {
+          section_heading
+          section_heading_type
+        }
+        ... on content_blocks {
+          content
+        }
+        ... on card_blocks {
+          card_title
+          card_subtitle
+          card_content_block {
+            item {
+              __typename
+              ... on content_blocks {
+                content
+              }
+            }
+          }
+        }
+        ... on tab_blocks {
+          __typename
+          id
+          block_label
+          tab_block {
+            item {
+              __typename
+              ... on tab_blocks_contents {
+                tab_label
+                tab_blocks {
+                  item {
+                    ... on section_heading_blocks {
+                      section_heading
+                      section_heading_type
+                    }
+                    ... on content_blocks {
+                      content
+                    }
+                    ... on tab_blocks {
+                      tab_block {
+                        item {
+                          ... on tab_blocks_contents {
+                            tab_label
+                            tab_blocks {
+                              item {
+                                ... on section_heading_blocks {
+                                  section_heading
+                                  section_heading_type
+                                }
+                                ... on content_blocks {
+                                  content
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

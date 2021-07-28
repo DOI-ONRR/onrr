@@ -18,33 +18,31 @@
             <div v-html="pages_by_id.content" />
             <!-- First row of block content -->
             <v-row class="first-row">
-              <v-col cols="12" xs="12" sm="6" v-for="block in firstRowBlocks" :key="block.id">
+              <v-col cols="12" xs="12" sm="6" v-for="(block, index) in firstRowBlocks" :key="index">
                 <v-card 
                   outlined
                   elevation="0" 
-                  class="card">
-                  <h2>{{ block.title }}</h2>
-                  <div v-html="block.content" />
+                  class="card"
+                  v-if="index <= 1">
+                  <v-card-text v-html="block.item.content"></v-card-text>
                 </v-card>
               </v-col>
             </v-row>
 
             <!-- Second row block content -->
             <v-row class="second-row">
-              <v-col cols="12" xs="12" md="4" v-for="block in secondRowBlocks" :key="block.id">
-                <v-card outlined elevation="0" class="card">
-                  <h2>{{ block.title }}</h2>
-                  <div v-html="block.content" />
+              <v-col cols="12" xs="12" md="4" v-for="(block, index) in secondRowBlocks" :key="index">
+                <v-card outlined elevation="0" class="card" >
+                  <v-card-text v-html="block.item.content"></v-card-text>
                 </v-card>
               </v-col>
             </v-row>
 
             <!-- Third row block content -->
             <v-row class="third-row">
-              <v-col cols="12" xs="12" md="4" v-for="block in thirdRowBlocks" :key="block.id">
+              <v-col cols="12" xs="12" md="4" v-for="(block, index) in thirdRowBlocks" :key="index">
                 <v-card outlined elevation="0" class="card">
-                  <h2>{{ block.title }}</h2>
-                  <div v-html="block.content" />
+                  <v-card-text v-html="block.item.content"></v-card-text>
                 </v-card>
               </v-col>
             </v-row>
@@ -83,7 +81,7 @@
 </template>
 
 <script>
-import { HOME_PAGE_QUERY } from '@/graphql/queries'
+import { PAGES_BY_ID_QUERY } from '@/graphql/queries'
 import Announcements from '@/components/sections/Announcements'
 import FilesBlock from '@/components/sections/FilesBlock'
 import RevenueStats from '@/components/sections/RevenueStats'
@@ -94,17 +92,20 @@ export default {
   data() {
     return {
       API_URL: process.env.VUE_APP_API_URL,
+      content_blocks: [],
       heroContent: `The Office of Natural Resources Revenue (ONRR - pronounced like "honor") collects, accounts for, and verifies energy and mineral revenues. We then distribute the funds to States, American Indians, and the U.S. Treasury.`
     }
   },
   apollo: {
     pages_by_id: {
-      query: HOME_PAGE_QUERY,
-      loadingKey: 'loading...'
-    },
-    content_blocks: {
-      query: HOME_PAGE_QUERY,
-      loadingKey: 'loading...'
+      query: PAGES_BY_ID_QUERY,
+      loadingKey: 'loading...',
+      variables () {
+        return {
+          ID: 1
+        }
+      },
+      fetchPolicy: 'cache-and-network'
     }
   }, 
   components: {
@@ -117,18 +118,21 @@ export default {
     console.log('breakpoint yo-------> ', this.$vuetify.breakpoint.width)
   },
   computed: {
-    firstRowBlocks() {
-      return this.content_blocks.filter(block => (block.id === '2' || block.id === '1')).sort((a, b) => a.id - b.id)
+    firstRowBlocks () {
+      const blocks = this.contentBlocks.filter((block, index) => index <= 1)
+      return blocks
     },
-    secondRowBlocks() {
-      return this.content_blocks.filter(block => (block.id === '3' || block.id === '4' ||  block.id === '5')).sort((a, b) => a.id - b.id)
+    secondRowBlocks () {
+      const blocks = this.contentBlocks.filter((block, index) => index >= 2 && index <= 4)
+      return blocks
     },
-    thirdRowBlocks() {
-      return this.content_blocks.filter(block => (block.id === '6' || block.id === '7' ||  block.id === '8')).sort((a, b) => a.id - b.id)
+    thirdRowBlocks () {
+      const blocks = this.contentBlocks.filter((block, index) => index >= 5 && index <= 7)
+      return blocks
     },
-    contentBlocks() {
-      const blocks = this.content_blocks
-      return blocks.sort((a, b) => a.id - b.id)
+    contentBlocks () {
+      const contentBlocks = this.pages_by_id && this.pages_by_id.page_blocks.filter(block => block.item.__typename === 'content_blocks')
+      return contentBlocks
     },
     cssProps () {
       return {

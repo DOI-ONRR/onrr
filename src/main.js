@@ -2,14 +2,21 @@ import Vue from 'vue'
 import router from './router'
 import VueApollo from 'vue-apollo'
 import ApolloClient from 'apollo-boost'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory'
 import vuetify from './plugins/vuetify'
 import App from './App.vue'
-import possibleTypes from './json/possibleTypes.json'
+import introspectionQueryResultData from './json/possibleTypes.json'
+
+
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+  introspectionQueryResultData
+})
 
 const cache = new InMemoryCache({
-  possibleTypes
+  fragmentMatcher
 })
+
+console.log('cache yo ------> ', cache)
 
 const apolloClient = new ApolloClient({
   uri: `${ process.env.VUE_APP_API_URL }/graphql`,

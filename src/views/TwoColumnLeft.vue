@@ -95,7 +95,7 @@ export default {
       }
       this.page = page
       return page
-    }
+    },
   }
 }
 </script>
