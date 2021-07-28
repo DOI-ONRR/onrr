@@ -92,6 +92,7 @@ export default {
   data() {
     return {
       API_URL: process.env.VUE_APP_API_URL,
+      contentBlocks: null,
       heroContent: `The Office of Natural Resources Revenue (ONRR - pronounced like "honor") collects, accounts for, and verifies energy and mineral revenues. We then distribute the funds to States, American Indians, and the U.S. Treasury.`
     }
   },
@@ -104,7 +105,15 @@ export default {
           ID: 1
         }
       },
-      // fetchPolicy: 'cache-and-network'
+      result ({ data }) {
+        console.log('result data: ', data)
+        if (data) {
+          const blocks = data.pages_by_id.page_blocks.filter(block => block.item.__typename === 'content_blocks')
+          this.contentBlocks = blocks
+        }
+        
+      },
+      fetchPolicy: 'cache-and-network'
     }
   }, 
   components: {
@@ -123,10 +132,10 @@ export default {
     
   },
   computed: {
-    contentBlocks () {
-      const contentBlocks = this.pages_by_id && this.pages_by_id.page_blocks.filter(block => block.item.__typename === 'content_blocks')
-      return contentBlocks
-    },
+    // contentBlocks () {
+    //   const contentBlocks = this.pages_by_id && this.pages_by_id.page_blocks.filter(block => block.item.__typename === 'content_blocks')
+    //   return contentBlocks
+    // },
     firstRowBlocks () {
       const blocks = this.contentBlocks.filter((block, index) => index <= 1)
       return blocks
