@@ -15,7 +15,7 @@
             cols="12"
             xs="12"
             sm="8">
-            <div v-html="pages_by_id.content" />
+            <!-- <div v-html="pages_by_id.content" /> -->
             <!-- First row of block content -->
             <v-row class="first-row">
               <v-col cols="12" xs="12" sm="6" v-for="(block, index) in firstRowBlocks" :key="index">
@@ -92,7 +92,6 @@ export default {
   data() {
     return {
       API_URL: process.env.VUE_APP_API_URL,
-      content_blocks: [],
       heroContent: `The Office of Natural Resources Revenue (ONRR - pronounced like "honor") collects, accounts for, and verifies energy and mineral revenues. We then distribute the funds to States, American Indians, and the U.S. Treasury.`
     }
   },
@@ -105,7 +104,7 @@ export default {
           ID: 1
         }
       },
-      fetchPolicy: 'cache-and-network'
+      // fetchPolicy: 'cache-and-network'
     }
   }, 
   components: {
@@ -114,10 +113,20 @@ export default {
     RevenueStats,
     HeroImage
   },
+  created () {
+    this.contentBlocks()
+  },
   mounted () {
     console.log('breakpoint yo-------> ', this.$vuetify.breakpoint.width)
   },
+  methods: {
+    
+  },
   computed: {
+    contentBlocks () {
+      const contentBlocks = this.pages_by_id && this.pages_by_id.page_blocks.filter(block => block.item.__typename === 'content_blocks')
+      return contentBlocks
+    },
     firstRowBlocks () {
       const blocks = this.contentBlocks.filter((block, index) => index <= 1)
       return blocks
@@ -130,15 +139,11 @@ export default {
       const blocks = this.contentBlocks.filter((block, index) => index >= 5 && index <= 7)
       return blocks
     },
-    contentBlocks () {
-      const contentBlocks = this.pages_by_id && this.pages_by_id.page_blocks.filter(block => block.item.__typename === 'content_blocks')
-      return contentBlocks
-    },
     cssProps () {
       return {
         '--anchor-color': this.$vuetify.theme.themes.dark.anchor
       }
-    }
+    },
   }
 }
 </script>

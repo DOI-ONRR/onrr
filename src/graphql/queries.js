@@ -50,7 +50,7 @@ query PagesById($ID: ID!) {
   pages_by_id (id: $ID) {
     id
     title 
-    content 
+    # content 
     slug
     hero_image {
       id
