@@ -17,7 +17,7 @@ jobs:
           command: npm run build
           
       - run: 
-          name: deploy to cloud.gov
+          name: Deploy to cloud.gov
           command: |
             pwd && ls -l
             curl -v -L -o cf-cli_amd64.deb 'https://cli.run.pivotal.io/stable?release=debian64&source=github'

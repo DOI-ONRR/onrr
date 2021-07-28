@@ -114,7 +114,7 @@ export default {
     HeroImage
   },
   created () {
-    this.contentBlocks()
+    // this.contentBlocks()
   },
   mounted () {
     console.log('breakpoint yo-------> ', this.$vuetify.breakpoint.width)
