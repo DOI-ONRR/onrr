@@ -6,9 +6,7 @@
     <v-card-subtitle v-if="cardSubtitle">
       {{ cardSubtitle }}
     </v-card-subtitle>
-    <v-card-text>
-      Content here...
-    </v-card-text>
+    <v-card-text v-html="cardContent[0].item.content"></v-card-text>
     <!-- <v-card-actions>
       Actions here...
     </v-card-actions> -->

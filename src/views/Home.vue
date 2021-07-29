@@ -106,7 +106,6 @@ export default {
         }
       },
       result ({ data }) {
-        console.log('result data: ', data)
         if (data) {
           const blocks = data.pages_by_id.page_blocks.filter(block => block.item.__typename === 'content_blocks')
           this.contentBlocks = blocks
