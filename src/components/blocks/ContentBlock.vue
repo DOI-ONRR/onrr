@@ -21,3 +21,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.text-h4 {
+  margin-bottom: 24px;
+}
+</style>
