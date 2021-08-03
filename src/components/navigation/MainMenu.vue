@@ -1,7 +1,7 @@
 <template>
   <div>
     <label v-if="$apollo.loading" text=""></label>
-    <nav id="main-menu" class="primary lighten-1" v-else>
+    <nav id="main-menu" class="primary" v-else>
       <ul>
         <li v-for="item in menuItems" :key="item.key.id">
           <v-menu 

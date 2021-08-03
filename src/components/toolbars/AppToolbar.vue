@@ -20,7 +20,7 @@
     </v-system-bar>
     <v-app-bar
       app
-      color="primary"
+      color="primary darken-1"
       dark
       class="v-app-bar-wrap"
       :class="{ 'hidden-system-bar': !showSystemBar }"

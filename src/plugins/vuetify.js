@@ -13,14 +13,14 @@ export default new Vuetify({
       },
       light: {
         primary: {
-          base: '#000951',
-          lighten1: '#1a227e',
-          lighten2: '#534aae'
+          base: '#1a227e',
+          lighten1: '#534aae',
+          darken1: '#000051'
         },
         secondary: {
-          base: '#004a74',
-          lighten1: '#0076a3',
-          lighten2: '#52a5d4'
+          base: '#0076a3',
+          lighten1: '#52a5d4',
+          darken1: '#004a74'
         },
         anchor: '#0076a3',
         accent: '#534aae'

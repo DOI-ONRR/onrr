@@ -24,7 +24,7 @@
                   elevation="0" 
                   class="card"
                   v-if="index <= 1">
-                  <v-card-text v-html="block.item.content"></v-card-text>
+                  <v-card-text v-html="block.item.content" class="text-body-1"></v-card-text>
                 </v-card>
               </v-col>
             </v-row>
@@ -33,7 +33,7 @@
             <v-row class="second-row">
               <v-col cols="12" xs="12" md="4" v-for="(block, index) in secondRowBlocks" :key="index">
                 <v-card outlined elevation="0" class="card" >
-                  <v-card-text v-html="block.item.content"></v-card-text>
+                  <v-card-text v-html="block.item.content" class="text-body-1"></v-card-text>
                 </v-card>
               </v-col>
             </v-row>
@@ -42,7 +42,7 @@
             <v-row class="third-row">
               <v-col cols="12" xs="12" md="4" v-for="(block, index) in thirdRowBlocks" :key="index">
                 <v-card outlined elevation="0" class="card">
-                  <v-card-text v-html="block.item.content"></v-card-text>
+                  <v-card-text v-html="block.item.content" class="text-body-1"></v-card-text>
                 </v-card>
               </v-col>
             </v-row>
@@ -51,12 +51,12 @@
             <v-row class="fourth-row">
               <v-col cols="12" xs="12" md="6">
                 <v-card outlined elevation="0" class="card">
-                  <FilesBlock title="Reporter Letters" filterBy="Reporter Letters" />
+                  <FilesBlock title="Reporter Letters" filterBy="Reporter Letters"  class="text-body-1" />
                 </v-card>
               </v-col>
               <v-col xs="12" md="6">
                 <v-card outlined elevation="0" class="card">
-                  <FilesBlock title="Press Releases" filterBy="Press Releases" />
+                  <FilesBlock title="Press Releases" filterBy="Press Releases"  class="text-body-1" />
                 </v-card>
               </v-col>
             </v-row>
@@ -65,7 +65,7 @@
             <v-row class="fifth-row">
               <v-col cols="12" xs="12" md="12">
                 <v-card outlined elevation="0" class="card">
-                  <RevenueStats title="Revenue Statistics" />
+                  <RevenueStats title="Revenue Statistics" class="text-body-1" />
                 </v-card>
               </v-col>
             </v-row>
