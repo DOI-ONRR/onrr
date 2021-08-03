@@ -1,7 +1,11 @@
 import gql from 'graphql-tag'
-// import {
-//   CORE_TAB_BLOCK_FIELDS
-// } from './fragments'
+import {
+  pageFields,
+  sectionHeadingBlocks,
+  contentBlocks,
+  cardBlocks,
+  tabBlocks
+} from './fragments'
 
 // Main menu query
 export const MENU_QUERY = gql`query {
@@ -46,81 +50,21 @@ query {
 
 // Page query
 export const PAGES_BY_ID_QUERY = gql`
+${pageFields}
+${contentBlocks}
+${sectionHeadingBlocks}
+${cardBlocks}
+${tabBlocks}
 query PagesById($ID: ID!) {
   pages_by_id (id: $ID) {
-    id
-    title 
-    # content 
-    slug
-    hero_image {
-      id
-    }
+    ...pageFields
     page_blocks {
-    	item {
+      item {
         __typename
-        ... on section_heading_blocks {
-          section_heading
-          section_heading_type
-        }
-        ... on content_blocks {
-          content
-        }
-        ... on card_blocks {
-          card_title
-          card_subtitle
-          card_content_block {
-            item {
-              __typename
-              ... on content_blocks {
-                content
-              }
-            }
-          }
-        }
-        ... on tab_blocks {
-          __typename
-          id
-          block_label
-          tab_block {
-            item {
-              __typename
-              ... on tab_blocks_contents {
-                tab_label
-                tab_blocks {
-                  item {
-                    ... on section_heading_blocks {
-                      section_heading
-                      section_heading_type
-                    }
-                    ... on content_blocks {
-                      content
-                    }
-                    ... on tab_blocks {
-                      tab_block {
-                        item {
-                          ... on tab_blocks_contents {
-                            tab_label
-                            tab_blocks {
-                              item {
-                                ... on section_heading_blocks {
-                                  section_heading
-                                  section_heading_type
-                                }
-                                ... on content_blocks {
-                                  content
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
+        ...contentBlocks
+        ...sectionHeadingBlocks
+	      ...cardBlocks
+	      ...tabBlocks
       }
     }
   }
@@ -192,38 +136,3 @@ export const CONTACTS_QUERY = gql`
     }
   }
 `
-
-// Sample pages by id blocks query
-export const SAMPLE = gql`
-  query {
-    pages_by_id(id: 55) {
-      id
-      slug
-      title
-      page_blocks {
-        id
-        item {
-          __typename
-          ... on headings {
-            section_heading
-            heading_type
-          }
-          ... on text_blocks {
-            content
-          }
-          ... on tab_blocks {
-            title
-            tab_section {
-              id
-              item {
-                ... on tab_block_section {
-                  tab_label
-                  tab_content
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-}`

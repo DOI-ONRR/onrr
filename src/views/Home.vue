@@ -107,6 +107,7 @@ export default {
       },
       result ({ data }) {
         if (data) {
+          console.log('contentBlocks data: ', data)
           const blocks = data.pages_by_id.page_blocks.filter(block => block.item.__typename === 'content_blocks')
           this.contentBlocks = blocks
         }
@@ -128,13 +129,12 @@ export default {
     console.log('breakpoint yo-------> ', this.$vuetify.breakpoint.width)
   },
   methods: {
-    
-  },
-  computed: {
-    // contentBlocks () {
+    //  contentBlocks () {
     //   const contentBlocks = this.pages_by_id && this.pages_by_id.page_blocks.filter(block => block.item.__typename === 'content_blocks')
     //   return contentBlocks
     // },
+  },
+  computed: {
     firstRowBlocks () {
       const blocks = this.contentBlocks.filter((block, index) => index <= 1)
       return blocks
