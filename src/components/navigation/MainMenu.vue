@@ -1,7 +1,7 @@
 <template>
   <div>
     <label v-if="$apollo.loading" text=""></label>
-    <nav id="main-menu" v-else>
+    <nav id="main-menu" class="primary lighten-1" v-else>
       <ul>
         <li v-for="item in menuItems" :key="item.key.id">
           <v-menu 
@@ -102,7 +102,7 @@ export default {
 #main-menu {
   width: 100%;
   margin: 0 auto;
-  background-color: #0A314D;
+  // background-color: #0A314D;
   position: absolute;
   bottom: 0;
   height: 50px;

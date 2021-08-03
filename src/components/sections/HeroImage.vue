@@ -1,5 +1,5 @@
 <template>
-  <div class="hero-container">
+  <div :class="[isHome ? 'hero-container home' : 'hero-container']">
     <img 
     :src="image"
     :alt="title" />
@@ -45,6 +45,11 @@ export default {
   }
 }
 
+.hero-container.home {
+  @extend .hero-container;
+  height: 450px;
+}
+
 .hero__text {
   position: absolute;
   height: 100px;
@@ -65,15 +70,15 @@ export default {
 .hero__home-text {
   position: absolute;
   font-weight: 400;
-  top: 0;
-  background: rgba(150, 66,169, 0.65);
-  color: white;
+  top: 25px;
+  left: 15px;
+  background: rgba(255,255,255, 0.65);
+  color: black;
   font-size: 24px;
   line-height: inherit;
-  width: 85%;
+  width: 65%;
   height: auto;
   text-align: left;
-  padding: 20px;
-  left: 0;
+  padding: 16px;
 }
 </style>
