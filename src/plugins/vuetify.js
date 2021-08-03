@@ -12,8 +12,16 @@ export default new Vuetify({
         anchor: 'neongreen',
       },
       light: {
-        primary: '#062135',
-        secondary: '#004a74',
+        primary: {
+          base: '#000951',
+          lighten1: '#1a227e',
+          lighten2: '#534aae'
+        },
+        secondary: {
+          base: '#004a74',
+          lighten1: '#0076a3',
+          lighten2: '#52a5d4'
+        },
         anchor: '#0076a3',
         accent: '#534aae'
       }
