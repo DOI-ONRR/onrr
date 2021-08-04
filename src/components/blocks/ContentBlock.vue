@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="[`text-${ contentType }`]"
+    :class="[`text-${ contentType } content-block`]"
     v-html="content">
   </div>
 </template>
@@ -23,6 +23,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.content-block {
+  h2 {
+    font-size: 1.5rem !important;
+  }
+}
 .text-h4 {
   margin-bottom: 24px;
 }

@@ -1,6 +1,6 @@
 <template>
   <v-container class="announcements__wrap">
-    <h2 style="margin-bottom: 8px;">{{ title  || 'Announcements'}}</h2>
+    <h2 class="text-h2">{{ title  || 'Announcements'}}</h2>
     <v-card 
       v-for="announcement in announcements"
       :key="announcement.id"

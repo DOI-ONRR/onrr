@@ -24,7 +24,9 @@
                   elevation="0" 
                   class="card"
                   v-if="index <= 1">
-                  <v-card-text v-html="block.item.content" class="text-body-1"></v-card-text>
+                  <v-card-text>
+                    <div class="text-body-1" v-html="block.item.content"></div>
+                  </v-card-text>
                 </v-card>
               </v-col>
             </v-row>
@@ -33,7 +35,9 @@
             <v-row class="second-row">
               <v-col cols="12" xs="12" md="4" v-for="(block, index) in secondRowBlocks" :key="index">
                 <v-card outlined elevation="0" class="card" >
-                  <v-card-text v-html="block.item.content" class="text-body-1"></v-card-text>
+                  <v-card-text>
+                    <div class="text-body-1" v-html="block.item.content"></div>
+                  </v-card-text>
                 </v-card>
               </v-col>
             </v-row>
@@ -42,7 +46,9 @@
             <v-row class="third-row">
               <v-col cols="12" xs="12" md="4" v-for="(block, index) in thirdRowBlocks" :key="index">
                 <v-card outlined elevation="0" class="card">
-                  <v-card-text v-html="block.item.content" class="text-body-1"></v-card-text>
+                  <v-card-text>
+                    <div class="text-body-1" v-html="block.item.content"></div>
+                  </v-card-text>
                 </v-card>
               </v-col>
             </v-row>
@@ -65,7 +71,7 @@
             <v-row class="fifth-row">
               <v-col cols="12" xs="12" md="12">
                 <v-card outlined elevation="0" class="card">
-                  <RevenueStats title="Revenue Statistics" class="text-body-1" />
+                  <RevenueBlock title="Revenue Statistics" />
                 </v-card>
               </v-col>
             </v-row>
@@ -83,8 +89,8 @@
 <script>
 import { PAGES_BY_ID_QUERY } from '@/graphql/queries'
 import Announcements from '@/components/sections/Announcements'
-import FilesBlock from '@/components/sections/FilesBlock'
-import RevenueStats from '@/components/sections/RevenueStats'
+import FilesBlock from '@/components/blocks/FilesBlock'
+import RevenueBlock from '@/components/blocks/RevenueBlock'
 import HeroImage from '@/components/sections/HeroImage'
 
 export default {
@@ -119,7 +125,7 @@ export default {
   components: {
     Announcements,
     FilesBlock,
-    RevenueStats,
+    RevenueBlock,
     HeroImage
   },
   created () {
@@ -159,52 +165,56 @@ export default {
 
 
 <style lang="scss" scoped>
-  .home-content img {
-    max-width: 100%;
-    margin: 20px 0;
-  }
+.home-content img {
+  max-width: 100%;
+  margin: 20px 0;
+}
 
-  .card {
-    padding: 10px;
-  }
+.card {
+  padding: 10px;
+}
 
-  .home__content {
-    padding-top: 25px;
-  }
+.home__content {
+  padding-top: 25px;
 
-  img {
-    max-width: 100%;
-    margin: 20px 0;
+  h2 {
+    margin-bottom: 16px !important;
   }
+}
 
-  .first-row .card {
-    min-height: 350px;
-    border-top-color: var(--v-secondary-base);
-    border-top-width: 6px;
-  }
+img {
+  max-width: 100%;
+  margin: 20px 0;
+}
 
-  .second-row .card {
-    min-height: 450px;
-  }
+.first-row .card {
+  min-height: 350px;
+  border-top-color: var(--v-secondary-base);
+  border-top-width: 6px;
+}
 
-  .third-row .card {
-    min-height: 275px;
-  }
+.second-row .card {
+  min-height: 450px;
+}
 
-  .second-row .card,
-  .third-row .card {
-    border-top-color: var(--v-primary-base);
-    border-top-width: 6px;
-  }
+.third-row .card {
+  min-height: 275px;
+}
 
-  .fourth-row .card {
-    min-height: 375px;
-    border-top-color: var(--v-purple-base);
-    border-top-width: 6px;
-  }
+.second-row .card,
+.third-row .card {
+  border-top-color: var(--v-primary-base);
+  border-top-width: 6px;
+}
 
-  .fifth-row .card {
-    border-top-color: var(--v-green-lighten1);
-    border-top-width: 6px;
-  }
+.fourth-row .card {
+  min-height: 375px;
+  border-top-color: var(--v-purple-base);
+  border-top-width: 6px;
+}
+
+.fifth-row .card {
+  border-top-color: var(--v-green-lighten1);
+  border-top-width: 6px;
+}
 </style>

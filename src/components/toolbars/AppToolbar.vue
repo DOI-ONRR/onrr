@@ -21,6 +21,7 @@
       app
       color="primary darken-1"
       dark
+      height="80px"
       class="v-app-bar-wrap"
       :class="{ 'hidden-system-bar': !showSystemBar }"
     >
@@ -32,13 +33,16 @@
               contain
               src="../../assets/images/icons/onrr-logo-200x200.png"
               transition="scale-transition"
-              width="40"
+              width="60"
             />
             </router-link>
             <router-link to="/">
             <v-toolbar-title>
-              <span style="font-size: .85rem; line-height: .85rem; top: 5px; position: relative;">U.S. Department of the Interior</span>
-              <br><span style="font-size: 1.5rem; top: -4px; position: relative;">Office of Natural Resources Revenue (ONRR)</span>
+              <div class="logo-content">
+                <span>U.S. Department of the Interior</span>
+                <span>Office of Natural</span>
+                <span>Resources Revenue (ONRR)</span>
+              </div>
             </v-toolbar-title>
             </router-link>
           
@@ -304,7 +308,35 @@ export default {
     top: -2px;
     margin-left: 5px;
   }
-} 
+}
+
+.logo-content {
+  position: relative;
+  top: -10px;
+
+  span {
+    display: block;
+  }
+
+  span:first-child {
+    font-size: .80rem;
+    top: 24px;
+    position: relative;
+  }
+
+  span:nth-child(2) {
+    font-size: 1.5rem; 
+    top: 16px;
+    position: relative;
+  }
+
+  span:last-child {
+    font-size: 1.5rem; 
+    top: 4px;
+    position: relative;
+  }
+}
+
 .banner-wrap {
   text-align: center;
   color: white;

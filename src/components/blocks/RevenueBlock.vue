@@ -1,16 +1,18 @@
 <template>
   <v-container>
-    <h2>{{ title }}</h2>
-    <p>Fiscal year {{ maxFiscalRevenueYear }} revenue: 
-      <span style="font-weight: bold;">{{ formatToDollarInt(totalYearlyFiscalRevenue) }}</span>
-    </p>
-    <p>Fiscal year {{ maxFiscalDisbursementYear }} disbursements: 
-      <span style="font-weight: bold;">{{ formatToDollarInt(totalYearlyDisbursements) }}</span>
-    </p><a href="">Press release</a>
-    <p>Fiscal year {{ maxFiscalDisbursementYear }} GOMESA disbursements: 
-      <span style="font-weight: bold;">{{ formatToDollarInt(totalYearlyGoMesaDisbursements) }}</span>
-    </p><a href="">Press release</a>
-    <a href="https://revenuedata.doi.gov/">Explore Revenue Statistics</a>
+    <h2 class="text-h2">{{ title }}</h2>
+    <div class="text-body-1">
+      <p>Fiscal year {{ maxFiscalRevenueYear }} revenue: 
+        <span style="font-weight: bold;">{{ formatToDollarInt(totalYearlyFiscalRevenue) }}</span>
+      </p>
+      <p>Fiscal year {{ maxFiscalDisbursementYear }} disbursements: 
+        <span style="font-weight: bold;">{{ formatToDollarInt(totalYearlyDisbursements) }}</span>
+      </p><a href="">Press release</a>
+      <p>Fiscal year {{ maxFiscalDisbursementYear }} GOMESA disbursements: 
+        <span style="font-weight: bold;">{{ formatToDollarInt(totalYearlyGoMesaDisbursements) }}</span>
+      </p><a href="">Press release</a>
+      <a href="https://revenuedata.doi.gov/">Explore Revenue Statistics</a>
+    </div>
   </v-container>
 </template>
 
@@ -18,7 +20,7 @@
 import { TOTAL_REVENUE_QUERY } from '@/graphql/queries';
 import { formatToDollarInt } from '@/js/utils'
 export default {
-  name: 'RevenueStats',
+  name: 'RevenueBlock',
   data() {
     return {
       revenue_fiscal_years: '',
