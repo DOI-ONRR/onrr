@@ -124,6 +124,7 @@ export default {
   },
   created () {
     // this.contentBlocks()
+    console.log('view vuetify obj--------->', this.$vuetify)
   },
   mounted () {
     console.log('breakpoint yo-------> ', this.$vuetify.breakpoint.width)
@@ -178,7 +179,7 @@ export default {
 
   .first-row .card {
     min-height: 350px;
-    border-top-color: #0076a3;
+    border-top-color: var(--v-secondary-base);
     border-top-width: 6px;
   }
 
@@ -192,18 +193,18 @@ export default {
 
   .second-row .card,
   .third-row .card {
-    border-top-color: #1a227e;
+    border-top-color: var(--v-primary-base);
     border-top-width: 6px;
   }
 
   .fourth-row .card {
     min-height: 375px;
-    border-top-color: #534aae;
+    border-top-color: var(--v-purple-base);
     border-top-width: 6px;
   }
 
   .fifth-row .card {
-    border-top-color: #097d4d;
+    border-top-color: var(--v-green-lighten1);
     border-top-width: 6px;
   }
 </style>

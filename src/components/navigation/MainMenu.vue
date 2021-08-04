@@ -102,7 +102,6 @@ export default {
 #main-menu {
   width: 100%;
   margin: 0 auto;
-  // background-color: #0A314D;
   position: absolute;
   bottom: 0;
   height: 50px;

@@ -2,7 +2,6 @@
   <div>
     <v-system-bar
       app
-      color="#222"
       height="30"
       class="system-bar"
       :class="{ 'hidden-system-bar': !showSystemBar }">
@@ -332,6 +331,7 @@ export default {
   transform: translate3d(0, 0, 0);
   transition: 0.1s all ease-out;
   width: 100vw;
+  background-color: var(--v-neutrals-base) !important;
 }
 
 .system-bar.hidden-system-bar {

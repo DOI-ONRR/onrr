@@ -36,7 +36,7 @@ export default {
 
 <style lang="scss" scoped>
 .announcements__wrap .card {
-  border-top-color: #ecb947;
+  border-top-color: var(--v-yellow-lighten1);
   border-top-width: 6px;
   margin-bottom: 25px;
 }
