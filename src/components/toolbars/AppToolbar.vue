@@ -21,7 +21,7 @@
       app
       color="primary darken-1"
       dark
-      height="80px"
+      :height="`${ showSystemBar ? '80px' : '60px' }`"
       class="v-app-bar-wrap"
       :class="{ 'hidden-system-bar': !showSystemBar }"
     >
@@ -29,11 +29,10 @@
           <router-link to="/">
             <v-img
               alt="Vuetify Logo"
-              class="shrink mr-2"
+              class="logo shrink mr-2"
               contain
               src="../../assets/images/icons/onrr-logo-200x200.png"
               transition="scale-transition"
-              width="60"
             />
             </router-link>
             <router-link to="/">
@@ -298,6 +297,7 @@ export default {
 
 
 .logo {
+  width: 60px;
   align-items: center;
   a {
     text-decoration: none;
@@ -378,8 +378,38 @@ export default {
 
 .v-app-bar-wrap.hidden-system-bar {
   margin-top: 0 !important;
-  height: 50px;
   transition: height .1s ease;
+
+  .logo {
+    width: 45px;
+  }
+
+  .logo-content {
+  position: relative;
+  top: -10px;
+
+  span {
+    display: block;
+  }
+
+  span:first-child {
+    font-size: .70rem;
+    top: 24px;
+    position: relative;
+  }
+
+  span:nth-child(2) {
+    font-size: 1.2rem; 
+    top: 16px;
+    position: relative;
+  }
+
+  span:last-child {
+    font-size: 1.2rem; 
+    top: 5px;
+    position: relative;
+  }
+}
 }
 
 .main-menu {
